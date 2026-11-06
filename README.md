@@ -1,20 +1,20 @@
 # Moonpost
 
-Un piccolo gioco di consegne in tre diorami isometrici, disegnati in pixel art. Raccogli le tre lettere di ogni isola e portale alla casetta entro il limite di passi.
+A tiny delivery puzzle set in three isometric pixel-art dioramas. Collect three letters on each island and deliver them to the cottage before you run out of steps.
 
-## Come giocare
+## How to play
 
-Apri `index.html` in un browser moderno. Il gioco usa HTML, CSS e JavaScript e funziona anche offline.
+Open `index.html` in a modern browser. Moonpost uses HTML, CSS, and JavaScript and works offline.
 
-- Usa le frecce, **WASD** o i pulsanti a schermo per muovere il corriere.
-- Clicca o tocca una casella percorribile per raggiungerla lungo il cammino più breve. Ogni casella attraversata consuma un passo.
-- Premi **Z** per annullare una mossa e **R** per ricominciare l’isola.
-- Dopo ogni consegna si sblocca l’isola successiva. Gli sblocchi si conservano nel browser quando lo spazio di archiviazione è disponibile.
+- Use the arrow keys, **WASD**, or the on-screen buttons to move the courier.
+- Click or tap a walkable tile to follow the shortest path to it. Each tile you cross costs one step.
+- Press **Z** to undo a move or **R** to restart the island.
+- Each delivery unlocks the next island. Your progress is saved when browser storage is available.
 
-## Pubblicazione su GitHub Pages
+## Publish on GitHub Pages
 
-1. Estrai l’archivio e carica i file nella radice di un repository GitHub. Includi il file nascosto `.nojekyll`.
-2. Apri **Settings → Pages** e scegli **Deploy from a branch**.
-3. Seleziona il branch **main** e **/(root)**, poi premi **Save**. GitHub mostrerà l’indirizzo del gioco nella stessa pagina.
+1. Place the source files in the root of a GitHub repository, including the hidden `.nojekyll` file.
+2. Open **Settings → Pages** and choose **Deploy from a branch**.
+3. Select the **main** branch and **/(root)**, then click **Save**. GitHub will show the game's address on that page.
 
-Non servono dipendenze, installazioni o comandi di build. Tutti i percorsi delle risorse sono relativi, quindi funzionano anche su un sito GitHub Pages di progetto.
+Moonpost has no dependencies and requires no installation or build step. All asset paths are relative, so the game can run from a GitHub Pages project site.

@@ -2,7 +2,7 @@
 
 const scenes = [
   {
-    name: "Bosco del crepuscolo", badge: "♠", color: "#705477", budget: 22,
+    name: "Twilight Woods", badge: "♠", color: "#705477", budget: 22,
     map: [
       "  T.T  ",
       " T.L.P ",
@@ -17,7 +17,7 @@ const scenes = [
     grass: ["#899859", "#9ca766", "#a4ac69"], edge: ["#705943", "#534250"], path: "#cf9c69", tree: ["#3e5550", "#628063", "#8ba06e"]
   },
   {
-    name: "Palude delle lucciole", badge: "✧", color: "#376e73", budget: 26,
+    name: "Firefly Marsh", badge: "✧", color: "#376e73", budget: 26,
     map: [
       " .T.L  ",
       " .WW.. ",
@@ -32,7 +32,7 @@ const scenes = [
     grass: ["#759773", "#8cab80", "#95ad86"], edge: ["#4d665c", "#3b4857"], path: "#b3a784", tree: ["#304f56", "#4e7870", "#7a9b79"]
   },
   {
-    name: "Cima dell’aurora", badge: "▲", color: "#89556f", budget: 22,
+    name: "Aurora Peak", badge: "▲", color: "#89556f", budget: 22,
     map: [
       "  L..P ",
       " T.WT. ",
@@ -111,7 +111,7 @@ function reset(index) {
   route = [];
   hover = null;
   motion = null;
-  statusText = "Raccogli le lettere e raggiungi la casetta.";
+  statusText = "Collect the letters and reach the cottage.";
   renderChapters();
   update();
 }
@@ -134,7 +134,7 @@ function renderChapters() {
     const name = document.createElement("strong");
     name.textContent = level.name;
     const subtitle = document.createElement("small");
-    subtitle.textContent = `0${index + 1} · ${done ? "CONSEGNATO" : button.disabled ? "BLOCCATO" : "GIOCABILE"}`;
+    subtitle.textContent = `0${index + 1} · ${done ? "DELIVERED" : button.disabled ? "LOCKED" : "AVAILABLE"}`;
     title.append(name, subtitle);
     button.append(badge, title);
     button.addEventListener("click", () => {
@@ -148,7 +148,7 @@ function renderChapters() {
 function update() {
   const number = String(chapter + 1).padStart(2, "0");
   $("scene-label").textContent = `${number} / 03 · ${scene.name.toUpperCase()}`;
-  $("scene-caption").textContent = `TURNO ${number}`;
+  $("scene-caption").textContent = `SHIFT ${number}`;
   $("letters").textContent = `${state.bag.size} / ${totalLetters}`;
   $("steps").textContent = state.steps;
   $("status").textContent = statusText;
@@ -165,12 +165,12 @@ function update() {
 
   const won = state.outcome === "won";
   const final = chapter === scenes.length - 1;
-  $("result-kicker").textContent = won ? "✦ TIMBRO LUNARE" : "✦ FINE DEL TURNO";
-  $("result-title").textContent = won ? (final ? "Giro completato!" : "Posta consegnata!") : "È spuntata l’alba!";
+  $("result-kicker").textContent = won ? "✦ LUNAR POSTMARK" : "✦ END OF SHIFT";
+  $("result-title").textContent = won ? (final ? "Route complete!" : "Mail delivered!") : "Dawn has arrived!";
   $("result-text").textContent = won
-    ? (final ? "Tutte le lettere sono arrivate. Buonanotte, corriere!" : `Consegna riuscita con ${state.steps} passi di scorta.`)
-    : "Hai esaurito i passi. Puoi tornare indietro e cambiare strada.";
-  $("result-action").textContent = won && !final ? "Prossima isola →" : won ? "Torna alla prima isola" : "Riprova";
+    ? (final ? "Every letter made it. Goodnight, courier!" : `Delivered with ${state.steps} ${state.steps === 1 ? "step" : "steps"} to spare.`)
+    : "You ran out of steps. Undo a move and try a different route.";
+  $("result-action").textContent = won && !final ? "Next island →" : won ? "Return to the first island" : "Try again";
   $("result-undo").hidden = won;
   $("result-action").focus({preventScroll: true});
 }
@@ -180,7 +180,7 @@ function move(dx, dy) {
   const x = state.x + dx;
   const y = state.y + dy;
   if (!passable(x, y)) {
-    statusText = "Strada chiusa. Cerca una casella libera.";
+    statusText = "Path blocked. Try an open tile.";
     update();
     return false;
   }
@@ -192,25 +192,25 @@ function move(dx, dy) {
   state.facing = dx - dy > 0 ? 1 : -1;
   const key = `${x},${y}`;
   let cue = "step";
-  statusText = state.bag.size === totalLetters ? "Borsa piena! Raggiungi la casetta." : "Cerca le buste dorate lungo il sentiero.";
+  statusText = state.bag.size === totalLetters ? "Mailbag full! Head to the cottage." : "Look for the golden envelopes along the path.";
 
   if (tile(x, y) === "L" && !state.bag.has(key)) {
     state.bag.add(key);
     cue = "letter";
-    statusText = state.bag.size === totalLetters ? "Borsa piena! Raggiungi la casetta." : "Una lettera al sicuro nella borsa!";
+    statusText = state.bag.size === totalLetters ? "Mailbag full! Head to the cottage." : "One more letter in the bag!";
   }
   if (tile(x, y) === "P" && state.bag.size === totalLetters) {
     state.outcome = "won";
-    statusText = "Consegna riuscita.";
+    statusText = "Delivery complete.";
     completeChapter();
     renderChapters();
     cue = "win";
   } else if (state.steps === 0) {
     state.outcome = "lost";
-    statusText = "Passi esauriti.";
+    statusText = "Out of steps.";
     cue = "lost";
   } else if (tile(x, y) === "P") {
-    statusText = "La casetta aspetta il resto della posta.";
+    statusText = "The cottage is waiting for the rest of the mail.";
   }
   if (state.outcome) route = [];
   playSound(cue);
@@ -230,7 +230,7 @@ function undo() {
   hover = null;
   motion = null;
   state = history.pop();
-  statusText = "Ultimo passo annullato.";
+  statusText = "Last step undone.";
   update();
 }
 
@@ -272,7 +272,7 @@ canvas.addEventListener("click", (event) => {
   const target = pick(event);
   const path = shortestPath(target);
   if (path.length > state.steps) {
-    statusText = "Quella casella è troppo lontana per i passi rimasti.";
+    statusText = "That tile is too far away for your remaining steps.";
     update();
     return;
   }
@@ -313,7 +313,7 @@ $("sound").addEventListener("click", async () => {
   const Audio = window.AudioContext || window.webkitAudioContext;
   if (!Audio) {
     $("sound").disabled = true;
-    $("sound").textContent = "Audio assente";
+    $("sound").textContent = "Audio unavailable";
     return;
   }
   soundOn = !soundOn;

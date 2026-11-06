@@ -1,81 +1,81 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f7f0df">
-  <meta name="description" content="Un piccolo gioco di consegne al chiaro di luna, in tre diorami isometrici.">
+  <meta name="description" content="A tiny moonlit delivery game set in three isometric dioramas.">
   <link rel="icon" href="./stamp.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
   <script src="./game.js" defer></script>
-  <title>Moonpost · Consegne al chiaro di luna</title>
+  <title>Moonpost · Deliveries by Moonlight</title>
 </head>
 <body>
   <header class="top shell">
-    <a href="./index.html" class="brand"><img src="./stamp.svg" alt="" width="40" height="40"><span>MOON<span>POST</span><small>SERVIZIO POSTALE LUNARE</small></span></a>
+    <a href="./index.html" class="brand"><img src="./stamp.svg" alt="" width="40" height="40"><span>MOON<span>POST</span><small>LUNAR POSTAL SERVICE</small></span></a>
     <button class="plain sound" id="sound" aria-pressed="false" type="button">♪ <span>Audio off</span></button>
   </header>
 
   <main class="shell">
     <section class="intro">
-      <p class="eyebrow"><span aria-hidden="true">✦</span> TURNO DI NOTTE <span class="rule"></span> MINI GIOCO</p>
-      <h1>Consegne al<br class="mobile-break"> chiaro di <em>luna.</em></h1>
-      <p class="lead">Tre isole, una borsa da riempire e un ultimo giro prima dell’alba.</p>
+      <p class="eyebrow"><span aria-hidden="true">✦</span> NIGHT SHIFT <span class="rule"></span> MINI GAME</p>
+      <h1>Deliveries by<br class="mobile-break"> <em>moonlight.</em></h1>
+      <p class="lead">Three islands, a mailbag to fill, and one last round before dawn.</p>
     </section>
 
-    <section class="layout" aria-label="Gioco e comandi">
+    <section class="layout" aria-label="Game and controls">
       <div class="game">
         <div class="game-head">
-          <span><span class="lamp" aria-hidden="true"></span> <span id="scene-label">01 / 03 · BOSCO DEL CREPUSCOLO</span></span>
+          <span><span class="lamp" aria-hidden="true"></span> <span id="scene-label">01 / 03 · TWILIGHT WOODS</span></span>
           <span class="game-tag">✧ DIORAMA</span>
         </div>
         <div class="viewport" id="viewport">
-          <canvas id="world" width="480" height="310" aria-label="Diorama isometrico. Usa frecce, WASD o i pulsanti per muovere il corriere."></canvas>
-          <div class="scene-caption" aria-hidden="true"><span>✦</span> <span id="scene-caption">TURNO 01</span></div>
+          <canvas id="world" width="480" height="310" aria-label="Isometric diorama. Use the arrow keys, WASD, or the on-screen buttons to move the courier."></canvas>
+          <div class="scene-caption" aria-hidden="true"><span>✦</span> <span id="scene-caption">SHIFT 01</span></div>
           <div class="result" id="result" hidden>
             <div class="result-card">
               <p class="eyebrow" id="result-kicker"></p>
               <h2 id="result-title"></h2>
               <p id="result-text"></p>
-              <div class="result-actions"><button type="button" id="result-action"></button><button type="button" id="result-undo" class="plain">Annulla passo</button></div>
+              <div class="result-actions"><button type="button" id="result-action"></button><button type="button" id="result-undo" class="plain">Undo step</button></div>
             </div>
           </div>
         </div>
         <div class="game-foot">
-          <span id="status" role="status">Raccogli le lettere e raggiungi la casetta.</span>
+          <span id="status" role="status">Collect the letters and reach the cottage.</span>
           <span class="mini-brand" aria-hidden="true">MP / 001</span>
         </div>
       </div>
 
-      <aside class="dispatch" aria-label="Scheda di consegna">
-        <div class="dispatch-head"><span class="eyebrow">SCHEDA DI CONSEGNA</span><span aria-hidden="true">✦</span></div>
-        <h2>La tua missione</h2>
-        <p>Raccogli le lettere, poi portale alla casetta prima di finire i passi.</p>
+      <aside class="dispatch" aria-label="Delivery sheet">
+        <div class="dispatch-head"><span class="eyebrow">DELIVERY SHEET</span><span aria-hidden="true">✦</span></div>
+        <h2>Your mission</h2>
+        <p>Collect the letters and deliver them to the cottage before you run out of steps.</p>
         <div class="stats">
-          <div><span class="stat-label"><span class="mail-icon" aria-hidden="true">✉</span> LETTERE</span><strong id="letters">0 / 3</strong></div>
-          <div><span class="stat-label"><span class="step-icon" aria-hidden="true">◆</span> PASSI</span><strong id="steps">22</strong></div>
+          <div><span class="stat-label"><span class="mail-icon" aria-hidden="true">✉</span> LETTERS</span><strong id="letters">0 / 3</strong></div>
+          <div><span class="stat-label"><span class="step-icon" aria-hidden="true">◆</span> STEPS</span><strong id="steps">22</strong></div>
         </div>
         <div class="meter" id="meter" aria-hidden="true"></div>
-        <div class="control-head"><span class="eyebrow">COMANDI</span><span>Frecce / WASD</span></div>
+        <div class="control-head"><span class="eyebrow">CONTROLS</span><span>Arrows / WASD</span></div>
         <div class="controls">
-          <button class="key" type="button" data-dir="left" aria-label="Muovi verso nord-ovest (freccia sinistra)">↖</button>
-          <button class="key" type="button" data-dir="up" aria-label="Muovi verso nord-est (freccia su)">↗</button>
-          <button class="key" type="button" data-dir="down" aria-label="Muovi verso sud-ovest (freccia giù)">↙</button>
-          <button class="key" type="button" data-dir="right" aria-label="Muovi verso sud-est (freccia destra)">↘</button>
+          <button class="key" type="button" data-dir="left" aria-label="Move northwest (Left Arrow)">↖</button>
+          <button class="key" type="button" data-dir="up" aria-label="Move northeast (Up Arrow)">↗</button>
+          <button class="key" type="button" data-dir="down" aria-label="Move southwest (Down Arrow)">↙</button>
+          <button class="key" type="button" data-dir="right" aria-label="Move southeast (Right Arrow)">↘</button>
         </div>
-        <p class="control-hint">Puoi anche toccare una casella.</p>
+        <p class="control-hint">You can also click or tap a tile.</p>
         <div class="actions">
-          <button class="plain" id="undo" type="button" disabled>↶ Annulla</button>
-          <button class="plain" id="restart" type="button">↻ Ricomincia</button>
+          <button class="plain" id="undo" type="button" disabled>↶ Undo</button>
+          <button class="plain" id="restart" type="button">↻ Restart</button>
         </div>
       </aside>
     </section>
 
-    <nav class="chapters" aria-label="Diorami">
-      <div class="chapter-heading"><span class="eyebrow">ITINERARIO</span><span>01 — 03</span></div>
+    <nav class="chapters" aria-label="Dioramas">
+      <div class="chapter-heading"><span class="eyebrow">ROUTE</span><span>01 — 03</span></div>
       <div class="chapter-grid" id="chapters"></div>
     </nav>
   </main>
-  <footer class="shell"><span>MOONPOST <span aria-hidden="true">✦</span> PICCOLI MONDI, ULTIMO GIRO.</span><span>FATTO A PIXEL</span></footer>
+  <footer class="shell"><span>MOONPOST <span aria-hidden="true">✦</span> SMALL WORLDS, ONE LAST ROUND.</span><span>MADE OF PIXELS</span></footer>
 </body>
 </html>
